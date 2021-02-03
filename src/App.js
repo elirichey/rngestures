@@ -1,22 +1,27 @@
 import React, {Component} from 'react';
-import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, SafeAreaView, View, Text} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
+import Fling from './components/Fling';
+import MultiTap from './components/Multitap';
+import PanResponderContainer from './components/PanResponderContainer';
+// import PinchableBoxContainer from './components/PinchableBoxContainer';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      status: 'Do Something',
-    };
   }
 
   render() {
-    let {status} = this.state;
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.body}>
-          <Text style={styles.text}>{status}</Text>
-        </View>
+        <ScrollView>
+          <View style={styles.body}>
+            <Fling />
+            <MultiTap />
+            <PanResponderContainer />
+            {/* <PinchableBoxContainer /> */}
+          </View>
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -32,8 +37,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  text: {
-    color: '#000000',
   },
 });
