@@ -7,29 +7,32 @@ import {
 } from 'react-native-gesture-handler';
 
 const windowWidth = Dimensions.get('window').width;
+const circleRadius = 30;
 
 class FlingElement extends Component {
   constructor(props) {
     super(props);
-
-    this.touchX = new Animated.Value(windowWidth / 2 - 30);
-    this.translateX = Animated.add(this.touchX, new Animated.Value(-30));
-    this.translateY = new Animated.Value(0);
+    this._touchX = new Animated.Value(windowWidth / 2 - circleRadius);
+    this._translateX = Animated.add(
+      this._touchX,
+      new Animated.Value(-circleRadius),
+    );
+    this._translateY = new Animated.Value(0);
   }
 
-  onHorizontalFlingHandlerStateChange = ({nativeEvent}, offset) => {
+  _onHorizontalFlingHandlerStateChange = ({nativeEvent}, offset) => {
     if (nativeEvent.oldState === State.ACTIVE) {
-      Animated.spring(this.touchX, {
-        toValue: this.touchX.value + offset,
+      Animated.spring(this._touchX, {
+        toValue: this._touchX._value + offset,
         useNativeDriver: true,
       }).start();
     }
   };
 
-  onVerticalFlingHandlerStateChange = ({nativeEvent}) => {
+  _onVerticalFlingHandlerStateChange = ({nativeEvent}) => {
     if (nativeEvent.oldState === State.ACTIVE) {
-      Animated.spring(this.translateY, {
-        toValue: this.translateY.value + 10,
+      Animated.spring(this._translateY, {
+        toValue: this._translateY._value + 10,
         useNativeDriver: true,
       }).start();
     }
@@ -40,11 +43,11 @@ class FlingElement extends Component {
       <FlingGestureHandler
         direction={Directions.UP}
         numberOfPointers={2}
-        onHandlerStateChange={this.onVerticalFlingHandlerStateChange}>
+        onHandlerStateChange={this._onVerticalFlingHandlerStateChange}>
         <FlingGestureHandler
           direction={Directions.RIGHT | Directions.LEFT}
           onHandlerStateChange={(ev) =>
-            this.onHorizontalFlingHandlerStateChange(ev, -10)
+            this._onHorizontalFlingHandlerStateChange(ev, -10)
           }>
           <View style={styles.horizontalPan}>
             <Animated.View
@@ -53,10 +56,10 @@ class FlingElement extends Component {
                 {
                   transform: [
                     {
-                      translateX: this.translateX,
+                      translateX: this._translateX,
                     },
                     {
-                      translateY: this.translateY,
+                      translateY: this._translateY,
                     },
                   ],
                 },
@@ -73,10 +76,7 @@ export default class Fling extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>FLING</Text>
-
         <FlingElement />
-
         <Text>
           Move up (with two fingers) or right/left (with one finger) and watch
           magic happens
@@ -90,18 +90,20 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 30,
     paddingBottom: 30,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
   horizontalPan: {
-    backgroundColor: '#000011',
+    backgroundColor: '#f76f41',
     height: 300,
     justifyContent: 'center',
     marginVertical: 10,
   },
   circle: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 30,
-    height: 60,
-    width: 60,
+    backgroundColor: '#42a5f5',
+    borderRadius: circleRadius,
+    height: circleRadius * 2,
+    width: circleRadius * 2,
   },
   title: {
     fontWeight: 'bold',

@@ -11,7 +11,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 import {DraggableBox} from './DragBox';
 
-class PanResponderElement extends Component {
+class ResponderElement extends Component {
   panResponder = {};
   previousLeft = 0;
   previousTop = 0;
@@ -95,10 +95,7 @@ class PanResponderElement extends Component {
   };
 }
 
-export default class PanResponderContainer extends Component {
-  onClick = () => {
-    alert("I'm so touched");
-  };
+export default class PanResponderElement extends Component {
   render() {
     return (
       <Fragment>
@@ -106,7 +103,7 @@ export default class PanResponderContainer extends Component {
         <ScrollView
           waitFor={['dragbox', 'imagepinch', 'imagerotation', 'imagetilt']}
           style={styles.scrollView}>
-          <PanResponderElement />
+          <ResponderElement />
           <DraggableBox />
         </ScrollView>
       </Fragment>
@@ -116,11 +113,8 @@ export default class PanResponderContainer extends Component {
 
 const styles = StyleSheet.create({
   scrollView: {
-    flex: 1,
     width: Dimensions.get('window').width - 30,
     backgroundColor: '#F5F5F5',
-    paddingTop: 30,
-    paddingBottom: 30,
     marginBottom: 30,
   },
   circle: {

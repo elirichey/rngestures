@@ -3,8 +3,7 @@ import {StyleSheet, SafeAreaView, View, Text} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import Fling from './components/Fling';
 import MultiTap from './components/Multitap';
-import PanResponderContainer from './components/PanResponderContainer';
-// import PinchableBoxContainer from './components/PinchableBoxContainer';
+import PanResponderElement from './components/PanResponder';
 
 export default class App extends Component {
   constructor(props) {
@@ -16,10 +15,10 @@ export default class App extends Component {
       <SafeAreaView style={styles.container}>
         <ScrollView>
           <View style={styles.body}>
-            <Fling />
             <MultiTap />
-            <PanResponderContainer />
-            {/* <PinchableBoxContainer /> */}
+            <PanResponderElement />
+
+            <Fling />
           </View>
         </ScrollView>
       </SafeAreaView>

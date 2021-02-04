@@ -57,7 +57,15 @@ export default class MultiTap extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>MULTI-TAP</Text>
-        <MultiTapElement />
+        <View style={styles.row}>
+          <MultiTapElement />
+
+          <View style={styles.instructions}>
+            <Text style={styles.txt}>Tap Once</Text>
+            <Text style={styles.txt}>Double Tap</Text>
+            <Text style={styles.txt}>Long Press</Text>
+          </View>
+        </View>
       </View>
     );
   }
@@ -79,5 +87,19 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 21,
+  },
+  row: {
+    flexDirection: 'row',
+    paddingTop: 15,
+    paddingBottom: 30,
+  },
+  instructions: {
+    flexDirection: 'column',
+    paddingLeft: 15,
+    justifyContent: 'center',
+  },
+  txt: {
+    flex: 1,
+    justifyContent: 'center',
   },
 });
